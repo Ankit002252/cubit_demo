@@ -15,8 +15,9 @@ class UserCubit extends Cubit<UserState> {
   //  emit(LoadingState());
 
     data.getInfo().then((value) {
-      print("valyueeeeee-----${value!.toJson()}");
-      if(value.data!.isNotEmpty){
+      ///todo -Api log -user cubit
+      // print("valyueeeeee-----${value!.toJson()}");
+      if(value!.data!.isNotEmpty){
         emit(LoadedState(value!));
       }
       else

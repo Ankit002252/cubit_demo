@@ -46,7 +46,7 @@ class ThemeCubit extends Cubit<ThemeState> {
   }
 
   void switchTheme() {
-    logger.d( "Current theme  --${_isDarkTheme}");
+    logger.d( "Current theme _isDarkTheme  --${_isDarkTheme}");
     if (_isDarkTheme) {
 
       _themeRepository.saveTheme(CustomTheme.light);

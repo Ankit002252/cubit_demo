@@ -13,9 +13,9 @@ class DataServices {
     UserModel? list;
     Future<UserModel?> getInfo() async {
       Response response = await _dio.get(baseUrl);
-      print("--->>>>>>>${response.data}");
+      // print("--->>>>>>>${response.data}");
       user =UserModel.fromJson(response.data);
-      print("->------------${user!.toJson()}");
+      // print("->------------${user!.toJson()}");
       return UserModel.fromJson(response.data);
 
   }

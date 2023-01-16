@@ -18,6 +18,8 @@ var loggerNoStack = Logger(
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+
   final themeRepository = ThemeRepository(
     sharedPreferences: await SharedPreferences.getInstance(),
   );
@@ -29,5 +31,3 @@ Future<void> main() async {
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
-
-

@@ -18,7 +18,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
+    return
+      RepositoryProvider.value(
       value: themeRepository,
       child: MultiBlocProvider(
         providers: [
@@ -26,7 +27,7 @@ class App extends StatelessWidget {
             create: (context) =>
                 ThemeCubit(themeRepository: context.read<ThemeRepository>())
                   ..getCurrentTheme(),
-            child: const AppView(),
+
           ),
           BlocProvider(create: (context) => InternetCubit()),
           BlocProvider(create: (context) => UserCubit(DataServices())),
