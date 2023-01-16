@@ -20,19 +20,19 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: themeRepository,
-      child: MultiBlocProvider(providers: [
-        BlocProvider(
-          create: (context) => ThemeCubit(
-            themeRepository: context.read<ThemeRepository>(),
-          )..getCurrentTheme(),
-          child: const AppView(),
-        ),
-   
-         BlocProvider(create: (context) => InternetCubit()),
-        BlocProvider(create: (context) => UserCubit(DataServices())),
-        
-      ],child:AppView() ,),
-   
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) =>
+                ThemeCubit(themeRepository: context.read<ThemeRepository>())
+                  ..getCurrentTheme(),
+            child: const AppView(),
+          ),
+          BlocProvider(create: (context) => InternetCubit()),
+          BlocProvider(create: (context) => UserCubit(DataServices())),
+        ],
+        child: AppView(),
+      ),
     );
   }
 }
@@ -47,8 +47,10 @@ class AppView extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          theme: AppTheme.lightTheme, // If ThemeMode is ThemeMode.light, this is selected as app's theme
-          darkTheme: AppTheme.darkTheme, // If ThemeMode is ThemeMode.dark, this is selected as app's theme
+          theme: AppTheme.lightTheme,
+          // If ThemeMode is ThemeMode.light, this is selected as app's theme
+          darkTheme: AppTheme.darkTheme,
+          // If ThemeMode is ThemeMode.dark, this is selected as app's theme
 
           // The themeMode is the most important property in showing
           // proper theme. The value comes from ThemeState class.
