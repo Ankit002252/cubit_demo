@@ -1,4 +1,0 @@
-#Mon Jan 16 14:33:43 IST 2023
-base.0=/Users/differenz114/Documents/cubit_demo/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-renamed.0=classes.dex
-path.0=classes.dex

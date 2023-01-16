@@ -1,3 +1,4 @@
+import 'package:cubit_demo/theme/theme_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,68 +18,71 @@ class _UserListScreenState extends State<UserListScreen> {
   void initState() {
     print("--------------userlist-----inti");
     // TODO: implement initState
-   context.read<UserCubit>().getData();
+    context.read<UserCubit>().getData();
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        appBar: AppBar(
-          title: Text("UseList"),
-        ),
-        body:     BlocConsumer<UserCubit, UserState>(
-          listener: (context, state) {
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.read<ThemeCubit>().switchTheme(),
+        tooltip: 'Switch Theme',
+        child: context.read<ThemeCubit>().state.themeMode == ThemeMode.light
+            ? const Icon(Icons.dark_mode)
+            : const Icon(Icons.light_mode),
+      ),
 
-            if (state is LoadedState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text(""),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            }
-          },
-          builder: (context, state) {
-    if (state is WelcomeState) {
-      return const Center(child: CircularProgressIndicator());
 
-    }
-            if (state is LoadedState) {
-
-              return  ListView.builder(
-                scrollDirection: Axis.vertical,
-                padding: const EdgeInsets.all(8),
-                itemCount: state.userModel!.data!.length,
-                itemBuilder: (context, i) {
-                  return Container(
-                    height: 80,
-                    margin: const EdgeInsets.only(bottom: 14),
-                    child: Card(
-                      elevation: 10,
-                      color: Colors.blue,
-                      child: Column(
-                        children:   [
-                          ListTile(
-                            title: Text(state.userModel!.data![i].firstName.toString(),
-                              style: TextStyle(
-                                  color: Colors.white, fontWeight: FontWeight.bold),
-                            ),
+      appBar: AppBar(
+        title: Text("UseList", style: Theme.of(context).textTheme.bodyText1),
+      ),
+      body: BlocConsumer<UserCubit, UserState>(
+        listener: (context, state) {
+          if (state is LoadedState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(""),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is WelcomeState) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is LoadedState) {
+            return ListView.builder(
+              scrollDirection: Axis.vertical,
+              padding: const EdgeInsets.all(8),
+              itemCount: state.userModel!.data!.length,
+              itemBuilder: (context, i) {
+                return Container(
+                  height: 80,
+                  margin: const EdgeInsets.only(bottom: 14),
+                  child: Card(
+                    elevation: 10,
+                    color: Colors.blue,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            state.userModel!.data![i].firstName.toString(),
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  );
-                },
-              );
-            }
-            return const SizedBox();
-          },
-        ),
-
-
-
+                  ),
+                );
+              },
+            );
+          }
+          return const SizedBox();
+        },
+      ),
     );
   }
 }
