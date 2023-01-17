@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:cubit_demo/cubits/user_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../api_repo.dart';
+import '../model/user_model.dart';
+import '../network/rest_api.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.data) : super(WelcomeState()) {
@@ -10,24 +14,17 @@ class UserCubit extends Cubit<UserState> {
 
   final DataServices data;
 
-
   void getData() {
-  //  emit(LoadingState());
+    //  emit(LoadingState());
 
-    data.getInfo().then((value) {
-      ///todo -Api log -user cubit
-      // print("valyueeeeee-----${value!.toJson()}");
-      if(value!.data!.isNotEmpty){
-        emit(LoadedState(value!));
-      }
-      else
-      {
-        emit(LoadedState(value!));
-      }
+    getUserList().then((value) {
+      UserModel userModel = UserModel.fromJson(jsonDecode(value));
 
+      if (!value) {
+        emit(LoadedState(value));
+      } else {
+        emit(WelcomeState());
+      }
     });
-
-
-
   }
 }
