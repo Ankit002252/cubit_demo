@@ -18,9 +18,16 @@ Map<String, String> buildHeaderTokens() {
   return header;
 }
 
-Uri buildBaseUrl(String endPoint) {
+Uri buildBaseUrl(String endPoint, bool memes) {
   Uri url = Uri.parse(endPoint);
-  if (!endPoint.startsWith('http')) url = Uri.parse('$mBaseUrl$endPoint');
+  String? newurl;
+  if (memes == true) {
+    newurl = baseurl2;
+  } else {
+    newurl = mBaseUrl;
+  }
+
+  if (!endPoint.startsWith('http')) url = Uri.parse('$newurl$endPoint');
 
   log('URL: ${url.toString()}');
 
@@ -28,10 +35,10 @@ Uri buildBaseUrl(String endPoint) {
 }
 
 Future<Response> buildHttpResponse(String endPoint,
-    {HttpMethod method = HttpMethod.GET, Map? request}) async {
+    {HttpMethod method = HttpMethod.GET, Map? request, bool? burl}) async {
   if (await isNetworkAvailable()) {
     // var headers = buildHeaderTokens();
-    Uri url = buildBaseUrl(endPoint);
+    Uri url = buildBaseUrl(endPoint, burl!);
 
     Response response;
 
@@ -64,9 +71,8 @@ Future handleResponse(Response response) async {
   }
 
   if (response.statusCode == 200) {
-
-    print("handleResponse------${ jsonDecode(response.body)}");
-    return  response.body;
+    print("handleResponse------${jsonDecode(response.body)}");
+    return response.body;
   } else {
     try {
       var body = jsonDecode(response.body);

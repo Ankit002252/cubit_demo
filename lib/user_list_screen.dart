@@ -1,3 +1,4 @@
+import 'package:cubit_demo/memes_screen.dart';
 import 'package:cubit_demo/theme/theme_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,10 +68,18 @@ class _UserListScreenState extends State<UserListScreen> {
                     color: Colors.blue,
                     child: Column(
                       children: [
-                        ListTile(
-                          title: Text(
-                            state.userModel!.data![i].firstName.toString(),
-                            style: Theme.of(context).textTheme.bodyText1,
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const MemesScreen()),
+                            );
+                          },
+                          child: ListTile(
+                            title: Text(
+                              state.userModel!.data![i].firstName.toString(),
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
                           ),
                         ),
                       ],

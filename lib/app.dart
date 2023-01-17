@@ -1,3 +1,4 @@
+import 'package:cubit_demo/cubits/mems_cubit.dart';
 import 'package:cubit_demo/cubits/user_cubit.dart';
 import 'package:cubit_demo/theme/app_theme.dart';
 import 'package:cubit_demo/theme/theme_cubit.dart';
@@ -31,6 +32,7 @@ class App extends StatelessWidget {
           ),
           BlocProvider(create: (context) => InternetCubit()),
           BlocProvider(create: (context) => UserCubit(DataServices())),
+          BlocProvider(create: (context) => MemesCubit()),
         ],
         child: AppView(),
       ),
