@@ -20,8 +20,8 @@ class UserCubit extends Cubit<UserState> {
     getUserList().then((value) {
       UserModel userModel = UserModel.fromJson(jsonDecode(value));
 
-      if (!value) {
-        emit(LoadedState(value));
+      if (userModel.data!=null) {
+        emit(LoadedState(userModel));
       } else {
         emit(WelcomeState());
       }
